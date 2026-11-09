@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aaroogya</title>
+<style>
+:root{--bg:#f3faf6;--card:#fff;--ink:#16302b;--mut:#5a7069;--pri:#0f8a6a;--on:#fff;--warn:#b93a0a;--line:#d6e7de;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1a17;--card:#16261f;--ink:#e6f2ed;--mut:#9bb5aa;--pri:#34c79b;--on:#07231a;--warn:#fb923c;--line:#27403a;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0e1a17;--card:#16261f;--ink:#e6f2ed;--mut:#9bb5aa;--pri:#34c79b;--on:#07231a;--warn:#fb923c;--line:#27403a;color-scheme:dark}
+*{box-sizing:border-box}html,body{margin:0}body{background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--card);z-index:10}
+button,input{font:inherit;color:inherit}
+.hide{display:none!important}
+.wrap{max-width:960px;margin:0 auto;padding:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
+.btn{background:var(--pri);color:var(--on);border:0;border-radius:12px;padding:10px 16px;cursor:pointer;font-weight:600}
+.btn.alt{background:transparent;color:var(--pri);border:1px solid var(--pri)}
+input[type=text],input[type=email],input[type=password]{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:var(--bg);margin:6px 0}
+.logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:20px;color:var(--pri);white-space:nowrap}
+.logo i{font-style:normal;background:var(--pri);color:var(--on);border-radius:10px;width:34px;height:34px;display:grid;place-items:center}
+.center{min-height:80vh;display:grid;place-items:center}
+.tabs{display:flex;gap:8px;margin-bottom:10px}.tabs button{flex:1}
+.langs{display:grid;gap:10px;margin-top:12px}.langs button{padding:16px;font-size:18px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:11;background:var(--card);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;gap:10px;padding:10px 16px;max-width:960px;margin:0 auto}
+.sb{flex:1;display:flex;align-items:center;border:1px solid var(--line);border-radius:999px;background:var(--bg);padding:0 6px 0 14px;min-width:0}
+.sb input{border:0;background:transparent;margin:0;outline:0;padding:9px 4px}
+.ib{background:transparent;border:0;font-size:20px;cursor:pointer;padding:6px 8px;border-radius:50%}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.box{cursor:pointer;text-align:center;padding:26px 14px;transition:transform .15s}
+.box:hover{transform:translateY(-3px);border-color:var(--pri)}.box .e{font-size:44px}
+.box h3{margin:8px 0 4px}.box p{margin:0;color:var(--mut);font-size:14px}
+h2{margin:26px 0 12px}
+ul.t{padding-left:20px}ul.t li{margin:6px 0}
+.vids a{display:inline-block;margin:4px 6px 4px 0;padding:8px 12px;border-radius:999px;background:var(--bg);border:1px solid var(--line);color:var(--pri);text-decoration:none;font-weight:600}
+.warn{border-left:5px solid var(--warn)}.warn h4{color:var(--warn);margin:0 0 4px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:20;display:grid;place-items:center;padding:16px}
+.modal .card{width:100%;max-width:520px;max-height:88vh;overflow:auto}
+video{width:100%;border-radius:12px;background:#000}
+.res{padding:10px;border-bottom:1px solid var(--line);cursor:pointer}.res:hover{background:var(--bg)}
+.pill{font-size:12px;padding:2px 8px;border-radius:99px;border:1px solid var(--line);color:var(--mut)}
+.sos{background:var(--warn);color:#fff}
+footer{text-align:center;color:var(--mut);font-size:13px;padding:24px 16px}
+</style></head>
+<body>
+
+<!-- AUTH -->
+<section id="auth" class="wrap center"><div class="card" style="width:100%;max-width:400px">
+<div class="logo" style="justify-content:center;margin-bottom:12px"><i>✚</i>Aaroogya</div>
+<div class="tabs"><button class="btn" id="tL" data-i="login"></button><button class="btn alt" id="tR" data-i="register"></button></div>
+<input type="text" id="nm" class="hide" data-p="name">
+<input type="email" id="em" data-p="email"><input type="password" id="pw" data-p="password">
+<p id="err" style="color:var(--warn);margin:4px 0"></p>
+<button class="btn" id="go" style="width:100%"></button>
+</div></section>
+
+<!-- LANGUAGE -->
+<section id="lang" class="wrap center hide"><div class="card" style="width:100%;max-width:400px;text-align:center">
+<div class="logo" style="justify-content:center"><i>✚</i>Aaroogya</div>
+<h2 data-i="chooseLang" style="margin:14px 0 0"></h2>
+<div class="langs" id="langs"></div>
+</div></section>
+
+<!-- HOME -->
+<div id="home" class="hide">
+<header><div class="bar">
+<div class="logo"><i>✚</i><span>Aaroogya</span></div>
+<div class="sb"><span>🔍</span><input id="q" type="text" data-p="search" autocomplete="off"><button class="ib" id="scan" title="Scan" aria-label="Scan">📷</button></div>
+<button class="ib" id="chLang" title="Language" aria-label="Language">🌐</button>
+<button class="ib" id="out" title="Logout" aria-label="Logout">⎋</button>
+</div></header>
+<main class="wrap">
+<div id="hello" style="color:var(--mut)"></div>
+<h2 data-i="forWho" style="margin-top:8px"></h2>
+<div class="grid" id="groups"></div>
+<div id="detail" class="card hide" style="margin-top:16px"></div>
+
+<h2 data-i="emerg"></h2>
+<div class="grid" id="emerg"></div>
+<div class="card sos" style="margin-top:14px;text-align:center"><b data-i="call"></b> &nbsp; <a href="tel:108" style="color:#fff">108</a> · <a href="tel:112" style="color:#fff">112</a> · <a href="tel:104" style="color:#fff">104</a></div>
+</main>
+<footer data-i="disc"></footer>
+</div>
+
+<!-- MODAL -->
+<div id="modal" class="modal hide"><div class="card" id="mbody"></div></div>
+
+<script>
+const $=s=>document.querySelector(s);
+const T={
+en:{login:"Login",register:"Register",name:"Full name",email:"Email",password:"Password",search:"Search medicine or illness",chooseLang:"Choose your language",forWho:"Health guides for everyone",emerg:"Floods, outbreaks and first aid",listen:"🔊 Listen",stop:"■ Stop",back:"Close",videos:"Watch videos",call:"Emergency: Ambulance 108 · Emergency 112 · Health helpline 104",hi:"Hello",disc:"For information only. Always consult a doctor or pharmacist before using any medicine.",children:"Children",pregnant:"Pregnant women",elderly:"Older people",childS:"Vaccines, fever, diarrhoea, nutrition",pregS:"Care, food, warning signs",eldS:"Medicines, falls, BP and sugar",cap:"Capture and read barcode",type:"Or type the medicine name",nores:"No match found. Try another name.",price:"Approx. price",uses:"Used for",side:"Side effects",rx:"Prescription needed",otc:"Available without prescription",bad:"Wrong details",exist:"Account already exists",nouser:"Wrong email or password",fill:"Please fill all fields",ocr:"Camera ready. Barcode scan works on supported phones. Reading printed text needs the server step.",code:"Barcode read:"},
+te:{login:"లాగిన్",register:"నమోదు",name:"పూర్తి పేరు",email:"ఈమెయిల్",password:"పాస్‌వర్డ్",search:"మందు లేదా వ్యాధి వెతకండి",chooseLang:"భాషను ఎంచుకోండి",forWho:"అందరికీ ఆరోగ్య మార్గదర్శకాలు",emerg:"వరదలు, వ్యాధులు, ప్రథమ చికిత్స",listen:"🔊 వినండి",stop:"■ ఆపు",back:"మూసివేయి",videos:"వీడియోలు చూడండి",call:"అత్యవసరం: అంబులెన్స్ 108 · ఎమర్జెన్సీ 112 · హెల్ప్‌లైన్ 104",hi:"నమస్కారం",disc:"సమాచారం కోసం మాత్రమే. ఏ మందు వాడే ముందైనా డాక్టర్ లేదా ఫార్మసిస్ట్‌ను సంప్రదించండి.",children:"పిల్లలు",pregnant:"గర్భిణీ స్త్రీలు",elderly:"వృద్ధులు",childS:"టీకాలు, జ్వరం, విరేచనాలు, పోషణ",pregS:"జాగ్రత్తలు, ఆహారం, హెచ్చరిక సంకేతాలు",eldS:"మందులు, పడిపోవడం, బీపీ, షుగర్",cap:"బార్‌కోడ్ స్కాన్ చేయి",type:"లేదా మందు పేరు టైప్ చేయండి",nores:"ఫలితం లేదు. మరో పేరు ప్రయత్నించండి.",price:"సుమారు ధర",uses:"వాడకం",side:"దుష్ప్రభావాలు",rx:"ప్రిస్క్రిప్షన్ అవసరం",otc:"ప్రిస్క్రిప్షన్ లేకుండా లభిస్తుంది",bad:"తప్పు వివరాలు",exist:"ఖాతా ఇప్పటికే ఉంది",nouser:"ఈమెయిల్ లేదా పాస్‌వర్డ్ తప్పు",fill:"అన్ని వివరాలు నింపండి",ocr:"కెమెరా సిద్ధం. బార్‌కోడ్ స్కాన్ మద్దతు ఉన్న ఫోన్లలో పనిచేస్తుంది.",code:"బార్‌కోడ్:"},
+hi:{login:"लॉगिन",register:"पंजीकरण",name:"पूरा नाम",email:"ईमेल",password:"पासवर्ड",search:"दवा या बीमारी खोजें",chooseLang:"भाषा चुनें",forWho:"सबके लिए स्वास्थ्य मार्गदर्शन",emerg:"बाढ़, बीमारी और प्राथमिक उपचार",listen:"🔊 सुनें",stop:"■ रोकें",back:"बंद करें",videos:"वीडियो देखें",call:"आपातकाल: एम्बुलेंस 108 · इमरजेंसी 112 · हेल्पलाइन 104",hi:"नमस्ते",disc:"केवल जानकारी के लिए। कोई भी दवा लेने से पहले डॉक्टर या फार्मासिस्ट से सलाह लें।",children:"बच्चे",pregnant:"गर्भवती महिलाएं",elderly:"बुज़ुर्ग",childS:"टीके, बुखार, दस्त, पोषण",pregS:"देखभाल, भोजन, चेतावनी संकेत",eldS:"दवाएं, गिरना, बीपी, शुगर",cap:"बारकोड पढ़ें",type:"या दवा का नाम लिखें",nores:"कोई परिणाम नहीं। दूसरा नाम आज़माएं।",price:"अनुमानित कीमत",uses:"उपयोग",side:"दुष्प्रभाव",rx:"पर्चा ज़रूरी",otc:"बिना पर्चे के उपलब्ध",bad:"गलत जानकारी",exist:"खाता पहले से है",nouser:"ईमेल या पासवर्ड गलत",fill:"सभी जानकारी भरें",ocr:"कैमरा तैयार। बारकोड स्कैन समर्थित फोन पर काम करता है।",code:"बारकोड:"}};
+const VL={en:"en-IN",te:"te-IN",hi:"hi-IN"};
+let L="en",user=null,mode="login";
+const t=k=>(T[L][k]||T.en[k]||k);
+const store={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+const G={
+child:{e:"🧒",n:"children",s:"childS",tips:["Follow the government vaccination schedule and keep the vaccine card safe.","Breastfeed exclusively for the first 6 months, then add soft home foods.","For diarrhoea or vomiting, give ORS in small frequent sips and continue feeding.","Never give aspirin to children. Use only the fever medicine and dose your doctor or pharmacist advises for the child’s weight.","See a doctor urgently for fever in a baby under 3 months, fast breathing, fits, very sleepy child, or no urine for 8 hours.","Wash hands before meals and after toilet; give only boiled or filtered water."],v:[["Child vaccination schedule India","Vaccines"],["ORS preparation for children","ORS"],["Child fever care at home","Fever"]]},
+preg:{e:"🤰",n:"pregnant",s:"pregS",tips:["Register the pregnancy early and attend every antenatal check-up (ANC).","Take iron, folic acid and calcium only as prescribed by your doctor or ANM.","Eat varied food: dal, greens, milk, eggs, fruits, nuts. Drink plenty of safe water.","Do not take any medicine on your own, including painkillers like ibuprofen. Always ask your doctor first.","Avoid alcohol, tobacco, raw or undercooked food and heavy lifting. Sleep on your side.","Go to hospital at once for bleeding, severe headache or blurred vision, swelling of face or hands, fits, fever, leaking fluid or reduced baby movement.","Plan the delivery place and keep the 108 ambulance number ready."],v:[["Pregnancy care first trimester","First trimester"],["Pregnancy diet India","Diet"],["Pregnancy warning signs","Warning signs"],["Pregnancy exercise yoga safe","Exercise"]]},
+eld:{e:"👴",n:"elderly",s:"eldS",tips:["Keep a written list of all medicines and use a weekly pill box to avoid missed or double doses.","Check blood pressure and sugar regularly and meet your doctor for review.","Prevent falls: good lighting, non-slip mats, handrails in the bathroom, proper footwear.","Drink enough water, eat light fibre-rich meals and walk daily as your doctor allows.","Ask your doctor about flu and pneumonia vaccines.","Do not stop or change BP, sugar or heart medicines on your own.","Get urgent help for chest pain, sudden weakness on one side, slurred speech, fainting or severe breathlessness."],v:[["Elderly care tips at home","Home care"],["Fall prevention for elderly","Fall prevention"],["Diabetes care for senior citizens","Diabetes"]]}};
+const E=[
+{e:"🌊",n:"Floods: before and during",tips:["Keep an emergency kit: ORS, clean water, dry food, torch, radio, power bank, documents in a plastic cover, regular medicines.","Move to higher ground early when warned. Switch off electricity and gas at the mains.","Never walk, swim or drive through floodwater. It can hide open drains and live wires.","Stay away from fallen electric poles and wires.","Listen to official alerts from the district administration."],v:[["Flood safety tips India","Flood safety"]]},
+{e:"🧼",n:"After floods: stay disease-free",tips:["Drink only boiled, chlorinated or bottled water. Eat freshly cooked hot food.","Cover cuts with waterproof dressing. Wash feet and hands with clean water and soap after wading in water.","Watch for fever, loose motions, vomiting, jaundice, rash, body ache or red eyes and go to the nearest health centre.","Remove stagnant water around the house and use mosquito nets to prevent dengue and malaria.","Check for snakes in shoes, bedding and corners. Do not try to catch them."],v:[["Diseases after floods prevention","Prevention"]]},
+{e:"🤒",n:"Fever or infection: first steps",tips:["Rest, drink plenty of fluids and keep the person cool and comfortable.","Check temperature. Use a fever medicine only as advised by a doctor or pharmacist.","Go to a doctor if fever lasts more than 2 to 3 days, or with rash, stiff neck, breathing trouble, confusion or severe weakness.","Cover mouth when coughing and avoid close contact to protect others."],v:[["Fever first aid","Fever"]]},
+{e:"💧",n:"Diarrhoea and dehydration",tips:["Start ORS at once: sip often. If no packet, mix 6 level teaspoons sugar and half teaspoon salt in 1 litre of boiled, cooled water.","Continue normal food and breastfeeding.","Go to hospital for blood in stool, sunken eyes, very dry mouth, no urine, or if the person cannot drink."],v:[["How to make ORS at home","ORS"]]},
+{e:"🩹",n:"Cuts, burns and snakebite",tips:["Bleeding: press firmly with a clean cloth and raise the limb. Do not remove soaked cloth, add more.","Burns: cool under running tap water for 10 to 20 minutes. No toothpaste, oil or ice.","Snakebite: keep the person calm and still, remove rings and tight items, keep the limb below heart level, and rush to hospital. Do not cut, suck or tie tightly."],v:[["First aid basics","First aid"],["Snake bite first aid India","Snakebite"]]},
+{e:"❤️",n:"Heart attack, stroke or fainting",tips:["Call 108 immediately.","Heart attack signs: chest pain or pressure, sweating, pain in arm or jaw. Keep the person seated and calm.","Stroke signs: face drooping, arm weakness, slurred speech. Note the time and go to hospital at once.","If someone faints, lay them flat and raise the legs. If not breathing, start CPR if trained."],v:[["Stroke signs FAST","Stroke"],["CPR hands only","CPR"]]}];
+
+const TR={
+child:{te:["ప్రభుత్వ టీకా షెడ్యూల్ ప్రకారం అన్ని టీకాలు వేయించండి, టీకా కార్డు భద్రంగా ఉంచండి.","మొదటి 6 నెలలు తల్లిపాలు మాత్రమే ఇవ్వండి, తర్వాత ఇంట్లో చేసిన మెత్తటి ఆహారం ప్రారంభించండి.","విరేచనాలు లేదా వాంతులు ఉంటే ORS ను కొద్దికొద్దిగా తరచుగా తాగించండి, ఆహారం కొనసాగించండి.","పిల్లలకు ఆస్పిరిన్ ఎప్పుడూ ఇవ్వకండి. జ్వరం మందు డాక్టర్ లేదా ఫార్మసిస్ట్ చెప్పిన మోతాదులో, పిల్లల బరువు ప్రకారం మాత్రమే ఇవ్వండి.","3 నెలల లోపు శిశువుకు జ్వరం, వేగంగా శ్వాస, ఫిట్స్, చాలా మగత, లేదా 8 గంటలు మూత్రం రాకపోతే వెంటనే డాక్టర్‌ను కలవండి.","భోజనానికి ముందు, టాయిలెట్ తర్వాత చేతులు కడగండి; మరిగించిన లేదా వడకట్టిన నీరే తాగించండి."],
+hi:["सरकारी टीकाकरण कार्यक्रम के अनुसार सभी टीके लगवाएं और टीकाकरण कार्ड संभालकर रखें।","पहले 6 महीने केवल मां का दूध दें, फिर घर का नरम भोजन शुरू करें।","दस्त या उल्टी में ORS थोड़ा-थोड़ा बार-बार पिलाएं और खाना-दूध जारी रखें।","बच्चों को कभी एस्पिरिन न दें। बुखार की दवा केवल डॉक्टर या फार्मासिस्ट की बताई मात्रा में, बच्चे के वज़न के अनुसार दें।","3 महीने से छोटे शिशु को बुखार, तेज़ सांस, दौरा, बहुत सुस्ती या 8 घंटे पेशाब न होने पर तुरंत डॉक्टर के पास जाएं।","खाने से पहले और शौच के बाद हाथ धोएं; केवल उबला या छना हुआ पानी पिलाएं।"]},
+preg:{te:["గర్భం తొలి దశలోనే నమోదు చేయించుకోండి, ప్రతి ప్రసవపూర్వ పరీక్ష (ANC)కు హాజరవ్వండి.","ఐరన్, ఫోలిక్ యాసిడ్, కాల్షియం డాక్టర్ లేదా ANM చెప్పినట్లే మాత్రమే వాడండి.","పప్పు, ఆకుకూరలు, పాలు, గుడ్లు, పండ్లు, గింజలు తినండి; శుభ్రమైన నీరు ఎక్కువగా తాగండి.","సొంతంగా ఏ మందూ వాడకండి, ఇబుప్రోఫెన్ వంటి నొప్పి మందులు కూడా. ముందు డాక్టర్‌ను అడగండి.","మద్యం, పొగాకు, పచ్చి లేదా సగం ఉడికిన ఆహారం, బరువులు ఎత్తడం మానండి. ఒక పక్కకు తిరిగి నిద్రపోండి.","రక్తస్రావం, తీవ్రమైన తలనొప్పి లేదా కళ్ళు మసకబారడం, ముఖం లేదా చేతుల వాపు, ఫిట్స్, జ్వరం, ఉమ్మనీరు కారడం లేదా బిడ్డ కదలికలు తగ్గితే వెంటనే ఆసుపత్రికి వెళ్ళండి.","ప్రసవ స్థలాన్ని ముందే నిర్ణయించుకోండి, 108 అంబులెన్స్ నంబర్ సిద్ధంగా ఉంచండి."],
+hi:["गर्भावस्था का जल्दी पंजीकरण कराएं और हर प्रसवपूर्व जांच (ANC) करवाएं।","आयरन, फोलिक एसिड और कैल्शियम केवल डॉक्टर या ANM के बताए अनुसार लें।","दाल, हरी सब्ज़ियां, दूध, अंडे, फल और मेवे खाएं और खूब साफ पानी पिएं।","खुद से कोई दवा न लें, दर्द की दवा जैसे आइबुप्रोफेन भी नहीं। पहले डॉक्टर से पूछें।","शराब, तंबाकू, कच्चा या अधपका भोजन और भारी सामान उठाने से बचें। करवट लेकर सोएं।","रक्तस्राव, तेज़ सिरदर्द या धुंधला दिखना, चेहरे या हाथों में सूजन, दौरे, बुखार, पानी रिसना या बच्चे की हलचल कम होने पर तुरंत अस्पताल जाएं।","प्रसव की जगह पहले से तय रखें और 108 एम्बुलेंस नंबर तैयार रखें।"]},
+eld:{te:["అన్ని మందుల జాబితా రాసి ఉంచండి, వారపు పిల్ బాక్స్ వాడండి, మోతాదు మిస్ కాకుండా లేదా రెండుసార్లు వేసుకోకుండా ఉంటుంది.","బీపీ, షుగర్ క్రమం తప్పకుండా చూసుకోండి, డాక్టర్‌ను తరచుగా కలవండి.","పడిపోకుండా: మంచి వెలుతురు, జారని మ్యాట్లు, బాత్రూమ్‌లో పట్టుకునే కడ్డీలు, సరైన చెప్పులు.","తగినంత నీరు తాగండి, తేలికైన పీచు ఆహారం తినండి, డాక్టర్ అనుమతిస్తే రోజూ నడవండి.","ఫ్లూ, న్యుమోనియా టీకాల గురించి డాక్టర్‌ను అడగండి.","బీపీ, షుగర్, గుండె మందులను సొంతంగా ఆపకండి లేదా మార్చకండి.","ఛాతీ నొప్పి, ఒక వైపు బలహీనత, మాట ముద్దగా రావడం, స్పృహ తప్పడం, తీవ్రమైన ఆయాసం ఉంటే వెంటనే సహాయం పొందండి."],
+hi:["सभी दवाओं की लिखित सूची रखें और साप्ताहिक पिल बॉक्स इस्तेमाल करें ताकि खुराक छूटे या दोहराई न जाए।","बीपी और शुगर की नियमित जांच करें और डॉक्टर से समीक्षा कराते रहें।","गिरने से बचाव: अच्छी रोशनी, फिसलन-रोधी मैट, बाथरूम में हैंडरेल और सही चप्पल-जूते।","पर्याप्त पानी पिएं, हल्का रेशेदार भोजन करें और डॉक्टर की अनुमति से रोज़ टहलें।","फ्लू और निमोनिया के टीके के बारे में डॉक्टर से पूछें।","बीपी, शुगर या हृदय की दवा खुद से बंद या बदलें नहीं।","सीने में दर्द, एक तरफ कमज़ोरी, लड़खड़ाती बोली, बेहोशी या तेज़ सांस फूलने पर तुरंत मदद लें।"]},
+e0:{tt:{te:"వరదలు: ముందు మరియు సమయంలో",hi:"बाढ़: पहले और दौरान"},te:["అత్యవసర కిట్ సిద్ధం చేయండి: ORS, శుభ్రమైన నీరు, ఎండు ఆహారం, టార్చ్, రేడియో, పవర్ బ్యాంక్, ప్లాస్టిక్ కవర్‌లో పత్రాలు, రోజువారీ మందులు.","హెచ్చరిక రాగానే ఎత్తైన ప్రదేశానికి వెళ్ళండి. మెయిన్ స్విచ్ వద్ద కరెంటు, గ్యాస్ ఆపండి.","వరద నీటిలో నడవకండి, ఈదకండి, వాహనం నడపకండి. అందులో తెరిచిన కాలువలు, కరెంటు తీగలు దాగి ఉండవచ్చు.","పడిపోయిన కరెంటు స్తంభాలు, తీగలకు దూరంగా ఉండండి.","జిల్లా యంత్రాంగం అధికారిక హెచ్చరికలు వినండి."],hi:["आपातकालीन किट रखें: ORS, साफ पानी, सूखा खाना, टॉर्च, रेडियो, पावर बैंक, प्लास्टिक में दस्तावेज़ और नियमित दवाएं।","चेतावनी मिलते ही ऊंची जगह चले जाएं। मेन स्विच से बिजली और गैस बंद करें।","बाढ़ के पानी में पैदल, तैरकर या गाड़ी से न जाएं। उसमें खुले नाले और करंट वाले तार छिपे हो सकते हैं।","गिरे बिजली के खंभों और तारों से दूर रहें।","जिला प्रशासन की आधिकारिक चेतावनियां सुनते रहें।"]},
+e1:{tt:{te:"వరదల తర్వాత: వ్యాధుల నివారణ",hi:"बाढ़ के बाद: बीमारियों से बचाव"},te:["మరిగించిన, క్లోరిన్ కలిపిన లేదా బాటిల్ నీరు మాత్రమే తాగండి. తాజాగా వండిన వేడి ఆహారం తినండి.","గాయాలను వాటర్‌ప్రూఫ్ కట్టుతో కప్పండి. నీటిలో నడిచిన తర్వాత సబ్బుతో కాళ్ళు, చేతులు కడగండి.","జ్వరం, విరేచనాలు, వాంతులు, కామెర్లు, దద్దుర్లు, ఒళ్ళునొప్పులు లేదా ఎర్రటి కళ్ళు ఉంటే దగ్గరి ఆరోగ్య కేంద్రానికి వెళ్ళండి.","ఇంటి చుట్టూ నిలిచిన నీటిని తొలగించండి, డెంగ్యూ, మలేరియా నివారణకు దోమతెరలు వాడండి.","చెప్పులు, పరుపులు, మూలల్లో పాములు ఉన్నాయేమో చూడండి. వాటిని పట్టుకోవడానికి ప్రయత్నించకండి."],hi:["केवल उबला, क्लोरीन मिला या बोतलबंद पानी पिएं। ताज़ा गर्म पका खाना खाएं।","कटे घाव को वाटरप्रूफ पट्टी से ढकें। पानी में चलने के बाद साबुन से हाथ-पैर धोएं।","बुखार, दस्त, उल्टी, पीलिया, चकत्ते, बदन दर्द या लाल आंखें हों तो नज़दीकी स्वास्थ्य केंद्र जाएं।","घर के आसपास रुका पानी हटाएं और डेंगू-मलेरिया से बचने को मच्छरदानी लगाएं।","जूतों, बिस्तर और कोनों में सांप देखें। उन्हें पकड़ने की कोशिश न करें।"]},
+e2:{tt:{te:"జ్వరం లేదా ఇన్ఫెక్షన్: మొదటి చర్యలు",hi:"बुखार या संक्रमण: पहले क्या करें"},te:["విశ్రాంతి తీసుకోండి, ద్రవాలు ఎక్కువగా తాగండి, వ్యక్తిని చల్లగా, సౌకర్యంగా ఉంచండి.","ఉష్ణోగ్రత చూడండి. జ్వరం మందు డాక్టర్ లేదా ఫార్మసిస్ట్ సలహాతో మాత్రమే వాడండి.","జ్వరం 2-3 రోజులకు మించినా, లేదా దద్దుర్లు, మెడ బిగుసుకోవడం, శ్వాస ఇబ్బంది, గందరగోళం, తీవ్ర బలహీనత ఉన్నా డాక్టర్‌ను కలవండి.","దగ్గేటప్పుడు నోరు కప్పుకోండి, ఇతరులను కాపాడేందుకు దగ్గరి సంపర్కం తగ్గించండి."],hi:["आराम करें, खूब तरल पिएं और व्यक्ति को ठंडा व आरामदायक रखें।","तापमान नापें। बुखार की दवा केवल डॉक्टर या फार्मासिस्ट की सलाह पर लें।","बुखार 2-3 दिन से ज़्यादा रहे, या चकत्ते, अकड़ी गर्दन, सांस में तकलीफ, भ्रम या बहुत कमज़ोरी हो तो डॉक्टर को दिखाएं।","खांसते समय मुंह ढकें और दूसरों को बचाने के लिए नज़दीकी संपर्क से बचें।"]},
+e3:{tt:{te:"విరేచనాలు, డీహైడ్రేషన్",hi:"दस्त और पानी की कमी"},te:["వెంటనే ORS ఇవ్వండి, తరచుగా గుక్కెడు గుక్కెడు తాగించండి. ప్యాకెట్ లేకపోతే 1 లీటరు మరిగించి చల్లార్చిన నీటిలో 6 చెంచాల పంచదార, అర చెంచా ఉప్పు కలపండి.","సాధారణ ఆహారం, తల్లిపాలు కొనసాగించండి.","మలంలో రక్తం, లోపలికి పోయిన కళ్ళు, చాలా పొడి నోరు, మూత్రం రాకపోవడం లేదా తాగలేకపోతే ఆసుపత్రికి వెళ్ళండి."],hi:["तुरंत ORS शुरू करें और बार-बार घूंट-घूंट पिलाएं। पैकेट न हो तो 1 लीटर उबले ठंडे पानी में 6 चम्मच चीनी और आधा चम्मच नमक मिलाएं।","सामान्य भोजन और स्तनपान जारी रखें।","मल में खून, धंसी आंखें, बहुत सूखा मुंह, पेशाब न आना या पी न पाने पर अस्पताल जाएं।"]},
+e4:{tt:{te:"గాయాలు, కాలిన గాయాలు, పాముకాటు",hi:"कटना, जलना और सांप का काटना"},te:["రక్తం కారితే శుభ్రమైన గుడ్డతో గట్టిగా నొక్కండి, అవయవాన్ని పైకి ఎత్తండి. తడిసిన గుడ్డను తీయకండి, పైన మరో గుడ్డ ఉంచండి.","కాలితే 10-20 నిమిషాలు కుళాయి నీటి కింద చల్లబరచండి. టూత్‌పేస్ట్, నూనె, ఐస్ వాడకండి.","పాము కరిస్తే వ్యక్తిని ప్రశాంతంగా, కదలకుండా ఉంచండి, ఉంగరాలు, బిగుతు వస్తువులు తీసేయండి, అవయవాన్ని గుండె కన్నా కిందికి ఉంచి వెంటనే ఆసుపత్రికి తీసుకెళ్ళండి. కోయడం, పీల్చడం, గట్టిగా కట్టడం చేయకండి."],hi:["खून बहे तो साफ कपड़े से कसकर दबाएं और अंग ऊपर उठाएं। भीगा कपड़ा हटाएं नहीं, ऊपर और कपड़ा रखें।","जलने पर 10-20 मिनट बहते नल के पानी में ठंडा करें। टूथपेस्ट, तेल या बर्फ न लगाएं।","सांप काटे तो व्यक्ति को शांत और स्थिर रखें, अंगूठी व कसी चीज़ें हटाएं, अंग को दिल से नीचे रखें और तुरंत अस्पताल पहुंचें। काटें, चूसें या कसकर न बांधें।"]},
+e5:{tt:{te:"గుండెపోటు, స్ట్రోక్ లేదా స్పృహ తప్పడం",hi:"हार्ट अटैक, स्ट्रोक या बेहोशी"},te:["వెంటనే 108 కు కాల్ చేయండి.","గుండెపోటు: ఛాతీ నొప్పి లేదా ఒత్తిడి, చెమటలు, చేయి లేదా దవడలో నొప్పి. వ్యక్తిని కూర్చోబెట్టి ప్రశాంతంగా ఉంచండి.","స్ట్రోక్: ముఖం ఒకవైపు వాలడం, చేయి బలహీనత, మాట ముద్దగా రావడం. సమయం గమనించి వెంటనే ఆసుపత్రికి వెళ్ళండి.","స్పృహ తప్పితే వెల్లకిలా పడుకోబెట్టి కాళ్ళు పైకి ఎత్తండి. శ్వాస లేకపోతే శిక్షణ ఉంటే CPR చేయండి."],hi:["तुरंत 108 पर कॉल करें।","हार्ट अटैक: सीने में दर्द या दबाव, पसीना, बांह या जबड़े में दर्द। व्यक्ति को बैठाकर शांत रखें।","स्ट्रोक: चेहरा टेढ़ा होना, बांह कमज़ोर, लड़खड़ाती बोली। समय नोट करें और तुरंत अस्पताल जाएं।","बेहोश हो तो सीधा लिटाकर पैर ऊपर करें। सांस न चल रही हो तो प्रशिक्षित होने पर CPR दें।"]}};
+const etitle=i=>((TR["e"+i]||{}).tt||{})[L]||E[i].n;
+const M=[
+["Dolo 650 (Paracetamol)","fever headache pain body ache","Fever, headache, mild to moderate pain","₹20–35 per strip","Rare at normal dose; overdose harms the liver",0],
+["Brufen (Ibuprofen)","pain inflammation fever dental","Pain, inflammation, fever","₹25–50 per strip","Acidity, stomach upset. Take with food",0],
+["Cetzine (Cetirizine)","allergy cold sneezing itching","Allergy, sneezing, runny nose, itching","₹15–35 per strip","Drowsiness, dry mouth",0],
+["Pan 40 (Pantoprazole)","acidity gas gerd ulcer","Acidity, GERD, stomach ulcer","₹90–160 per strip","Headache, loose stools",1],
+["Omez (Omeprazole)","acidity heartburn gas","Acidity, heartburn","₹40–70 per strip","Headache, nausea",0],
+["Mox (Amoxicillin)","infection throat ear chest antibiotic","Bacterial infections","₹80–130 per strip","Diarrhoea, rash. Avoid in penicillin allergy",1],
+["Azithral (Azithromycin)","infection respiratory skin antibiotic","Bacterial infections","₹70–120 per strip","Nausea, diarrhoea, stomach pain",1],
+["Domstal (Domperidone)","nausea vomiting","Nausea and vomiting","₹25–50 per strip","Dry mouth, headache",1],
+["Glycomet (Metformin)","diabetes sugar","Type 2 diabetes","₹15–50 per strip","Nausea, diarrhoea, metallic taste",1],
+["Amlokind (Amlodipine)","blood pressure bp hypertension","High blood pressure","₹20–60 per strip","Ankle swelling, flushing, headache",1],
+["Atorva (Atorvastatin)","cholesterol","High cholesterol","₹60–120 per strip","Muscle ache, stomach upset",1],
+["Electral (ORS)","diarrhoea dehydration vomiting","Dehydration from diarrhoea or vomiting","₹15–30 per pack","None common",0]];
+
+function applyLang(){
+ document.documentElement.lang=L;
+ document.querySelectorAll("[data-i]").forEach(e=>e.textContent=t(e.dataset.i));
+ document.querySelectorAll("[data-p]").forEach(e=>e.placeholder=t(e.dataset.p));
+ $("#go").textContent=t(mode);
+ $("#hello").textContent=user?t("hi")+", "+user.name:"";
+ $("#groups").innerHTML=Object.keys(G).map(k=>`<div class="card box" data-g="${k}"><div class="e">${G[k].e}</div><h3>${t(G[k].n)}</h3><p>${t(G[k].s)}</p></div>`).join("");
+ $("#emerg").innerHTML=E.map((x,i)=>`<div class="card box" data-e="${i}"><div class="e">${x.e}</div><h3>${etitle(i)}</h3></div>`).join("");
+}
+function show(id){["auth","lang","home"].forEach(s=>$("#"+s).classList.toggle("hide",s!==id));window.scrollTo(0,0)}
+let VO=[];try{VO=speechSynthesis.getVoices();speechSynthesis.onvoiceschanged=()=>{VO=speechSynthesis.getVoices()}}catch(e){}
+function toast(m){let d=$("#toast");if(!d){d=document.createElement("div");d.id="toast";d.style.cssText="position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:30;background:var(--warn);color:#fff;padding:12px;border-radius:12px;text-align:center";document.body.appendChild(d)}d.textContent=m;d.style.display="block";clearTimeout(d.t);d.t=setTimeout(()=>d.style.display="none",6000)}
+const NV={te:"ఈ పరికరంలో తెలుగు వాయిస్ లేదు. ఫోన్ సెట్టింగ్స్ > టెక్స్ట్-టు-స్పీచ్ లో తెలుగు వాయిస్ ఇన్‌స్టాల్ చేయండి.",hi:"इस डिवाइस में हिंदी आवाज़ नहीं है। फोन सेटिंग्स > टेक्स्ट-टू-स्पीच में हिंदी आवाज़ इंस्टॉल करें।"};
+function speak(txt){try{const ss=speechSynthesis;ss.cancel();const v=VO.find(x=>x.lang.replace("_","-").toLowerCase().startsWith(L));
+ if(!v&&NV[L])toast(NV[L]);
+ txt.split(/(?<=[.।!?])\s+/).filter(Boolean).forEach(s=>{const u=new SpeechSynthesisUtterance(s);u.lang=VL[L];if(v)u.voice=v;u.rate=.9;ss.speak(u)})}catch(e){}}
+function stop(){try{speechSynthesis.cancel()}catch(e){}}
+const yt=q=>"https://www.youtube.com/results?search_query="+encodeURIComponent(q);
+
+function panel(icon,title,tips,vids){
+ const d=$("#detail");d.classList.remove("hide");
+ d.innerHTML=`<div style="display:flex;justify-content:space-between;gap:8px;align-items:center"><h2 style="margin:0">${icon} ${title}</h2><button class="btn alt" id="x">${t("back")}</button></div>
+ <ul class="t">${tips.map(x=>`<li>${x}</li>`).join("")}</ul>
+ <button class="btn" id="ls">${t("listen")}</button> <button class="btn alt" id="st">${t("stop")}</button>
+ <h3>${t("videos")}</h3><div class="vids">${vids.map(v=>`<a target="_blank" rel="noopener" href="${yt(v[0])}">▶ ${v[1]}</a>`).join("")}</div>`;
+ $("#x").onclick=()=>{stop();d.classList.add("hide")};
+ $("#ls").onclick=()=>speak(title+". "+tips.join(". "));
+ $("#st").onclick=stop;
+ d.scrollIntoView({behavior:"smooth",block:"start"});
+}
+function openModal(h){$("#mbody").innerHTML=h;$("#modal").classList.remove("hide")}
+function closeModal(){stop();killCam();$("#modal").classList.add("hide")}
+$("#modal").onclick=e=>{if(e.target.id==="modal")closeModal()};
+
+function medCard(m){
+ const x=`${m[0]}. ${t("uses")}: ${m[2]}. ${t("price")}: ${m[3]}. ${t("side")}: ${m[4]}. ${m[5]?t("rx"):t("otc")}.`;
+ openModal(`<h2 style="margin-top:0">💊 ${m[0]}</h2>
+ <p><b>${t("uses")}:</b> ${m[2]}</p><p><b>${t("price")}:</b> ${m[3]}</p><p><b>${t("side")}:</b> ${m[4]}</p>
+ <p><span class="pill">${m[5]?t("rx"):t("otc")}</span></p>
+ <button class="btn" id="mls">${t("listen")}</button> <button class="btn alt" id="mx">${t("back")}</button>
+ <p style="color:var(--mut);font-size:13px">${t("disc")}</p>`);
+ $("#mls").onclick=()=>speak(x);$("#mx").onclick=closeModal;
+}
+function find(q){q=q.toLowerCase().trim();return q?M.filter(m=>(m[0]+" "+m[1]+" "+m[2]).toLowerCase().includes(q)):[]}
+function results(q){
+ const r=find(q);
+ openModal(`<div style="display:flex;justify-content:space-between"><h3 style="margin:0">🔍 ${q}</h3><button class="btn alt" id="mx">${t("back")}</button></div>`+
+ (r.length?r.map((m,i)=>`<div class="res" data-m="${M.indexOf(m)}"><b>${m[0]}</b><br><span style="color:var(--mut);font-size:14px">${m[2]}</span></div>`).join(""):`<p>${t("nores")}</p>`));
+ $("#mx").onclick=closeModal;
+ document.querySelectorAll(".res").forEach(e=>e.onclick=()=>medCard(M[+e.dataset.m]));
+}
+
+let stream=null;
+function killCam(){if(stream){stream.getTracks().forEach(x=>x.stop());stream=null}}
+async function scanner(){
+ openModal(`<h3 style="margin-top:0">📷 Scan</h3><video id="v" autoplay playsinline muted></video>
+ <p id="sm" style="color:var(--mut);font-size:14px">${t("ocr")}</p>
+ <button class="btn" id="cap">${t("cap")}</button> <button class="btn alt" id="mx">${t("back")}</button>
+ <p style="margin-bottom:0">${t("type")}</p><input type="text" id="mt" data-p="search" placeholder="${t("search")}">`);
+ $("#mx").onclick=closeModal;
+ $("#mt").onkeydown=e=>{if(e.key==="Enter"){closeModal();results(e.target.value)}};
+ try{stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"}});$("#v").srcObject=stream}catch(e){$("#sm").textContent="Camera not available. Type the name below."}
+ $("#cap").onclick=async()=>{
+  try{const d=new BarcodeDetector();const c=await d.detect($("#v"));
+   $("#sm").textContent=c.length?t("code")+" "+c[0].rawValue:"No barcode found. Hold the strip steady or type the name."}
+  catch(e){$("#sm").textContent="Barcode scan is not supported on this browser. Type the name below."}};
+}
+
+// events
+$("#tL").onclick=()=>{mode="login";$("#nm").classList.add("hide");$("#tL").className="btn";$("#tR").className="btn alt";$("#go").textContent=t("login");$("#err").textContent=""};
+$("#tR").onclick=()=>{mode="register";$("#nm").classList.remove("hide");$("#tR").className="btn";$("#tL").className="btn alt";$("#go").textContent=t("register");$("#err").textContent=""};
+$("#go").onclick=()=>{
+ const em=$("#em").value.trim().toLowerCase(),pw=$("#pw").value,nm=$("#nm").value.trim(),us=store.get("aar_users")||{};
+ if(!em||!pw||(mode==="register"&&!nm)){$("#err").textContent=t("fill");return}
+ if(mode==="register"){if(us[em]){$("#err").textContent=t("exist");return}us[em]={name:nm,pw:btoa(unescape(encodeURIComponent(pw)))};store.set("aar_users",us);user={name:nm,email:em}}
+ else{const u=us[em];if(!u||u.pw!==btoa(unescape(encodeURIComponent(pw)))){$("#err").textContent=t("nouser");return}user={name:u.name,email:em}}
+ store.set("aar_session",user);$("#err").textContent="";show("lang");
+};
+const LG=[["en","English"],["te","తెలుగు"],["hi","हिन्दी"],["","தமிழ்"],["","ಕನ್ನಡ"],["","മലയാളം"],["","বাংলা"],["","मराठी"],["","ગુજરાતી"],["","ਪੰਜਾਬੀ"],["","ଓଡ଼ିଆ"],["","اردو"]];
+$("#langs").innerHTML=LG.map(g=>g[0]?`<button class="btn alt" data-l="${g[0]}">${g[1]}</button>`:`<button class="btn alt" disabled style="opacity:.5">${g[1]} · soon</button>`).join("");
+$("#langs").onclick=e=>{const b=e.target.closest("[data-l]");if(!b)return;stop();L=b.dataset.l;store.set("aar_lang",L);applyLang();$("#detail").classList.add("hide");show("home")};
+$("#chLang").onclick=()=>show("lang");
+$("#out").onclick=()=>{store.set("aar_session",null);user=null;show("auth")};
+$("#scan").onclick=scanner;
+$("#q").onkeydown=e=>{if(e.key==="Enter"&&e.target.value.trim())results(e.target.value)};
+document.addEventListener("click",e=>{
+ const g=e.target.closest("[data-g]"),x=e.target.closest("[data-e]");
+ if(g){const k=G[g.dataset.g];panel(k.e,t(k.n),(TR[g.dataset.g]||{})[L]||k.tips,k.v)}
+ if(x){const k=E[+x.dataset.e];panel(k.e,etitle(+x.dataset.e),(TR["e"+x.dataset.e]||{})[L]||k.tips,k.v)}
+});
+
+// start
+L=store.get("aar_lang")||"en";user=store.get("aar_session");applyLang();
+show(user?"home":"auth");
+</script>
+</body></html>
